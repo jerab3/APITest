@@ -25,15 +25,15 @@ namespace WebApplication1.Filters
             else
             {
                 var existingOrganization = OrganizationRepository.GetOrganizationByName(organization.Name);
-                if (existingOrganization != null)
+                if (existingOrganization == null)
+                    return;
+                    
+                context.ModelState.AddModelError("Organization", "Organization with this name already exists.");
+                var problemDetails = new ValidationProblemDetails(context.ModelState)
                 {
-                    context.ModelState.AddModelError("Organization", "Organization with this name already exists.");
-                    var problemDetails = new ValidationProblemDetails(context.ModelState)
-                    {
-                        Status = StatusCodes.Status400BadRequest
-                    };
-                    context.Result = new BadRequestObjectResult(problemDetails);
-                }
+                    Status = StatusCodes.Status400BadRequest
+                };
+                context.Result = new BadRequestObjectResult(problemDetails);
             }
         }
     }

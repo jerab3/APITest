@@ -13,7 +13,7 @@ namespace WebApplication1.Filters
             var id = context.ActionArguments["id"] as int?;
             var organization = context.ActionArguments["organization"] as Organization;
 
-            if (id.HasValue && organization != null && id != organization.Id) 
+            if (id.HasValue && organization != null && id != organization.Id)
             {
                 context.ModelState.AddModelError("Id", "Id of organization is not the same as id.");
                 var problemDetails = new ValidationProblemDetails(context.ModelState)
