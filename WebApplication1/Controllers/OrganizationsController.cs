@@ -46,7 +46,7 @@ public class OrganizationsController : ControllerBase
     [Organization_HandleUpdateExceptionFilter]
     public IActionResult UpdateOrganization(int id, [FromBody] Organization organization)
     {
-        OrganizationRepository.UpdateOrganization(organization)
+        OrganizationRepository.UpdateOrganization(organization);
 
         return NoContent();
     }
