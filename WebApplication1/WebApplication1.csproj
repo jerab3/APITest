@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Filters\NewFolder\" />
+    <Folder Include="Filters\ExceptionFilters\" />
   </ItemGroup>
 
 </Project>
