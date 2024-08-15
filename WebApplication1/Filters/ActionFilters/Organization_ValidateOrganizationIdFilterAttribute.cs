@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System.Numerics;
 using WebApplication1.Models.Repositories;
 
-namespace WebApplication1.Filters;
+namespace WebApplication1.Filters.ActionFilters;
 
 public class Organization_ValidateOrganizationIdFilterAttribute : ActionFilterAttribute
 {
