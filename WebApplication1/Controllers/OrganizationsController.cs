@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Filters.ActionFilters;
+using WebApplication1.Filters.ExceptionFilters;
 using WebApplication1.Models;
 using WebApplication1.Models.Repositories;
 
@@ -42,21 +43,10 @@ public class OrganizationsController : ControllerBase
     [HttpPut("{id}")]
     [Organization_ValidateOrganizationIdFilter]
     [Organization_ValidateUpdateOrganizationFilter]
+    [Organization_HandleUpdateExceptionFilter]
     public IActionResult UpdateOrganization(int id, [FromBody] Organization organization)
     {
-        try
-        {
-            OrganizationRepository.UpdateOrganization(organization);
-        }
-        catch
-        {
-            if (!OrganizationRepository.OrganizationExists(id))
-            {
-                return NotFound();
-            }
-
-            throw;
-        }
+        OrganizationRepository.UpdateOrganization(organization)
 
         return NoContent();
     }
