@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using WebApplication1.Data;
 using WebApplication1.Models.Repositories;
 
 namespace WebApplication1.Filters.ActionFilters;
 
-public class Organization_ValidateOrganizationIdFilterAttribute : ActionFilterAttribute
+public class Organization_ValidateOrganizationIdFilterAttribute(ApplicationDbContext db) : ActionFilterAttribute
 {
+    private readonly ApplicationDbContext _db = db;
+
     public override void OnActionExecuting(ActionExecutingContext context)
     {
         base.OnActionExecuting(context);
@@ -22,8 +25,11 @@ public class Organization_ValidateOrganizationIdFilterAttribute : ActionFilterAt
                 Status = StatusCodes.Status400BadRequest
             };
             context.Result = new BadRequestObjectResult(problemDetails);
+            return;
         }
-        else if (!OrganizationRepository.OrganizationExists(organizationId.Value))
+
+        var organization = _db.Organizations.Find(organizationId.Value);
+        if (organization == null)
         {
             context.ModelState.AddModelError("Id", "Organization doesn't exist.");
             var problemDetails = new ValidationProblemDetails(context.ModelState)
@@ -31,6 +37,11 @@ public class Organization_ValidateOrganizationIdFilterAttribute : ActionFilterAt
                 Status = StatusCodes.Status404NotFound
             };
             context.Result = new NotFoundObjectResult(problemDetails);
+            return;
+        }
+        else
+        {
+            context.HttpContext.Items["organization"] = organization;      
         }
     }
 }
