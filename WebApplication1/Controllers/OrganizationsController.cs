@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Data;
 using WebApplication1.Filters.ActionFilters;
+using WebApplication1.Filters.AuthFilters;
 using WebApplication1.Filters.ExceptionFilters;
 using WebApplication1.Models;
 
@@ -8,6 +9,7 @@ namespace WebApplication1.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[JwtTokenAuthFilter]
 public class OrganizationsController(ApplicationDbContext db) : ControllerBase
 {
     private readonly ApplicationDbContext _db = db;
