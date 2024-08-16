@@ -3,7 +3,6 @@ using WebApplication1.Data;
 using WebApplication1.Filters.ActionFilters;
 using WebApplication1.Filters.ExceptionFilters;
 using WebApplication1.Models;
-using WebApplication1.Models.Repositories;
 
 namespace WebApplication1.Controllers;
 
