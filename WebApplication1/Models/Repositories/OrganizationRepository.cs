@@ -42,7 +42,15 @@ public static class OrganizationRepository
     {
         var organizationToUpdate = organizations.First(x => x.Id ==organization.Id);
 
-        organizationToUpdate.Name = organization.Name;
-        organizationToUpdate.NumberOfEmployees = organization.NumberOfEmployees;
+        
+    }
+
+    public static void DeleteOrganization(int id) 
+    {
+        var organizationToDelete = GetOrganizationById(id);
+        if (organizationToDelete != null)
+        {
+            organizations.Remove(organizationToDelete);
+        }
     }
 }
